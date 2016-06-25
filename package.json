@@ -1,0 +1,21 @@
+{
+  "name": "charlie-foxtrot",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "devDependencies": {
+    "later": "^1.2.0",
+    "restify": "^4.1.1"
+  },
+  "main": "index.js",
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+	"scripts": {
+	 "build": "babel src -d lib"
+	},
+  "author": "",
+  "license": "ISC"
+}
