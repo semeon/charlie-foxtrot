@@ -47,11 +47,9 @@ class RestClient {
 					maxResults: 300,
 				};
 
-		console.log('JIRA: ---- Requesting tickets');
+		// console.log('JIRA: ---- Requesting tickets');
 		this.client.post(path, data, function(err, request, response, data) {
         if (response.statusCode == 200) {
-					// console.log('JIRA: Status: ', response.statusCode, ' (', response.statusMessage,  ')' );
-					console.log('JIRA: ---- Tickets retrieved: ' + data.total);
 
 					if (data.total > data.maxResults) {
 						console.log("ERROR: COULD NOT RETRIEVE ALL ISSUES. PAGINATION IS NOT IMPLEMENTED.");
@@ -59,9 +57,7 @@ class RestClient {
 						console.log("-- DATA SIZE: " + data.total);
 					}
 
-					// console.log(data);
 					var issues = data.issues;
-					// self.retrieveSprintWorklogs(sprint, issues);
 					callback(issues);
 					
 				} else {
@@ -72,32 +68,52 @@ class RestClient {
 
 
 	retrieveTicketWorklogs(sprint, issue, callback) {
-
 		var self = this;
 		var path = "/rest/api/latest/issue/" + issue.id + "/worklog";
 
 		this.client.get(path,
 			function(err, request, response, data) {
         if (response.statusCode == 200) {
-					
-					// console.log('JIRA: ---- Retrieved',  data.total, 'worklogs belonging to ticket ' + issue.key);
-					
 					if (data.total > data.maxResults) {
 						console.log("ERROR: COULD NOT RETRIEVE ALL WORKLOGS. PAGINATION IS NOT IMPLEMENTED.");
 						console.log("-- PAGE SIZE: " + data.maxResults);
 						console.log("-- DATA SIZE: " + data.total);
 					}
-
 					var worklogs = data.worklogs;
 					callback(issue, worklogs);
 				} else {
         	console.log('JIRA: Could not retrieve ticket. Status: ', response.statusCode, ' (', response.statusMessage,  ')' );
         }
 			});
-
-		
 	}
 
+
+	getQualityIssues(sprint, callback) {
+		var self = this;
+		var path = "/rest/api/latest/search";
+		
+    var data = {
+	        jql: "labels in (qualitymetric) AND affectedVersion in ("  + sprint.id +  ")",
+					maxResults: 300,
+				};
+		// console.log('JIRA: -- JQL: ' + data.jql);
+
+		this.client.post(path, data,
+			function(err, request, response, data) {
+        if (response.statusCode == 200) {
+					if (data.total > data.maxResults) {
+						console.log("ERROR: COULD NOT RETRIEVE ALL ISSUES. PAGINATION IS NOT IMPLEMENTED.");
+						console.log("-- PAGE SIZE: " + data.maxResults);
+						console.log("-- DATA SIZE: " + data.total);
+					}
+					var issues = data.issues;
+					callback(issues);
+					
+				} else {
+        	console.log('JIRA: Could not retrieve data. Status: ', response.statusCode, ' (', response.statusMessage,  ')' );
+      	}
+			});
+	}
 
 
 	saveActiveSession(response, data) {
@@ -106,6 +122,7 @@ class RestClient {
 		this.params.headers.cookie = data.session.name + '=' + data.session.value + ';' + secretCookie;
     // console.log("Cookie: " + this.params.headers.cookie);
 	}
+
 
 	post(path, params, callback) {
 		this.client.post(url, this.creds, function(err, request, response, data) {

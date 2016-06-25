@@ -7,8 +7,6 @@ var DataRetriever = require('./dataRetriever/dataRetriever.js');
 class Application {
 
 	constructor() {
-		console.log("App Constructor");
-		
 		this.restServer = new RestServer(8081);
 		this.dataModel = new Model();
 		this.dataRetriever = new DataRetriever(this.dataModel);
@@ -16,7 +14,6 @@ class Application {
 	}
 
 	start() {
-		console.log("App Start");
 		//	this.restServer.start();
 		this.dataRetriever.start();
 

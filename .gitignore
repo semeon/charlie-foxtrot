@@ -1,3 +1,4 @@
 node_modules
-datapreprocessor
+app/datapreprocessor
+data
 cred.js

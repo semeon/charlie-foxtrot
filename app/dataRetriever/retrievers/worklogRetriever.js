@@ -8,32 +8,24 @@ class WorklogRetriever {
 	constructor(sprint, restClient, callback) {
 		this.sprint = sprint;
 		this.restClient = restClient;
-		
 		this.onCompletion = callback;
+		this.wlRequestCounter = 0;
 
 		this.data = {};
 		this.data.tickets = {};
 		this.data.worklogs = {};
-		
-		this.wlRequestCounter = 0;
-		
 	}
 	
 	start() {
 		var self = this;
 		this.restClient.getSprintTickets(this.sprint, function(tickets) {
-
+  		console.log('JIRA: ---- Tickets retrieved: ' + tickets.length);
 			self.retrieveSprintWorklogs(self.sprint, tickets);
-			
-			// self.onCompletion();
 		});
 	}
 
-
 	retrieveSprintWorklogs(sprint, tickets) {
 		var self = this;
-		console.log('JIRA: ---- Retriving worklogs for sprint ' + sprint.id + '.');
-
 		for(var i=0; i<tickets.length; i++) {
 			var ticket = tickets[i];
 			this.data.tickets[ticket.id] = ticket; 
@@ -42,7 +34,6 @@ class WorklogRetriever {
 		}
 
 	}
-	
 	
 	onWorklogRetrieval(ticket, worklogs) {
 		this.wlRequestCounter--;

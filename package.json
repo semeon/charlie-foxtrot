@@ -4,6 +4,7 @@
   "description": "",
   "private": true,
   "devDependencies": {
+    "jsonfile": "^2.3.1",
     "later": "^1.2.0",
     "restify": "^4.1.1"
   },
@@ -13,9 +14,8 @@
       "es2015"
     ]
   },
-	"scripts": {
-	 "build": "babel src -d lib"
-	},
+  "scripts": {
+  },
   "author": "",
   "license": "ISC"
 }

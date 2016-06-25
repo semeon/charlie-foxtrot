@@ -1,7 +1,6 @@
 var appSettings = {};
 
 appSettings.sprints = [
-
 	{
 		"id": "R31",
 		"title": "R31: 2016-06-27 Nav 5",
@@ -9,21 +8,23 @@ appSettings.sprints = [
 		"end": "2016-06-27",
 	},
 
+/*
+	
 	{
 		"id": "R30",
 		"title": "R30: 2016-06-13 Nav 4",
 		"start": "2016-05-31",
 		"end": "2016-06-13",
 	},
-	
-	/* 
+*/	
+
 	{
 		"id": "R29",
 		"title": "R29: 2016-05-30 Nav 3",
 		"start": "2016-05-17",
 		"end": "2016-05-30",
 	},
-
+	/* 
 	{
 		"id": "R28",
 		"title": "R28: 2016-05-16 Nav 2",
