@@ -13,7 +13,7 @@ class WorklogRetriever {
 
 		this.data = {};
 		this.data.tickets = {};
-		this.data.worklogs = {};
+		this.data.worklogs = [];
 	}
 	
 	start() {
@@ -37,10 +37,17 @@ class WorklogRetriever {
 	
 	onWorklogRetrieval(ticket, worklogs) {
 		this.wlRequestCounter--;
-		this.data.worklogs[ticket.id] = worklogs;
+		
+		for(var w=0; w<worklogs.length; w++) {
+			var worklog = worklogs[w];
+			var worklogDate = worklog.started.substring(0, 10);
+			if (worklogDate >= this.sprint.start && worklogDate <= this.sprint.end ) {
+				this.data.worklogs.push(worklog);
+			}
+		}		
 		
 		if (this.wlRequestCounter <= 0 ) {
-			console.log('JIRA: ---- Worklogs retrieved: ' +  worklogs.length);
+			console.log('JIRA: ---- Worklogs retrieved: ' +  this.data.worklogs.length);
 			this.onCompletion(this.data);
 		}
 	}

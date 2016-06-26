@@ -16,7 +16,7 @@ class QualityIssuesRetriever {
 
 			console.log('JIRA: ---- Quality issues retrieved: ' +  tickets.length);
 
-			self.onCompletion();
+			self.onCompletion(tickets);
 		});
 	}
 
