@@ -82,7 +82,7 @@ class RestClient {
 					var worklogs = data.worklogs;
 					callback(issue, worklogs);
 				} else {
-        	console.log('JIRA: Could not retrieve ticket. Status: ', response.statusCode, ' (', response.statusMessage,  ')' );
+        	console.log('JIRA: Could not retrieve data. Status: ', response.statusCode, ' (', response.statusMessage,  ')' );
         }
 			});
 	}
