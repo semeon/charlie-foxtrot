@@ -77,4 +77,66 @@ appSettings.sprints = [
 	// },
 ];
 
+appSettings.subTeams = [
+	{
+		name: "FE Dev",
+		members: ["Albert Zhang",	"Colin Chen",	"Friday Dai",	"Matt Jiang"]
+	},
+
+	{
+		name: "BE Dev",
+		members: ["Charles Chen",	"Dennis Yan",	"Michael Zhao",	"Sky Wang"]
+	},
+
+	{
+		name: "QA",
+		members: ["Edith Sun", "Lilith Zhang", "Sandy Chen"]
+	},
+
+	{
+		name: "Other",
+		members: []
+	},
+
+];
+
+appSettings.workTypes = [
+	{
+		"type": "Story", 
+		"color": "green"
+	},
+	{
+		"type": "Improvement", 
+		"color": "olive"
+	},
+	{
+		"type": "Task", 
+		"color": "grey"
+	},
+	{
+		"type": "Bug", 
+		"color": "orange"
+	},
+	{
+		"type": "Regression Testing", 
+		"color": "yellow"
+	},
+	{
+		"type": "Testing Automation", 
+		"color": "blue"
+	},
+	{
+		"type": "Release Preparation", 
+		"color": "teal"
+	},
+	{
+		"type": "Design Task", 
+		"color": "pink"
+	},
+	{
+		"type": "Overhead", 
+		"color": "red"
+	},
+];
+
 module.exports = appSettings;
