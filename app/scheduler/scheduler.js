@@ -1,17 +1,18 @@
+"use strict";
+
 var later = require('later');
 
-// fires every 5 minutes
-var text = 'every 5 sec';
-var sched = later.parse.text(text);
 
-var t = later.setInterval(test, sched);
-var count = 5;
+class Scheduler {
+	
+	constructor() {
+	}
 
-
-function test() {
-  console.log(new Date());
-  count--;
-  if(count <= 0) {
-    t.clear();
-  }
+	scheduleJob(textSched, task) {
+		var sched = later.parse.text(textSched);
+		var job = later.setInterval(task, sched);
+	}
+	
 }
+
+module.exports = Scheduler;
