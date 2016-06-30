@@ -20,17 +20,13 @@ class QualityMetric {
 	
 	update(tickets) {
 
-		console.log("Quality UPDATE");
-		console.log(tickets);
+		// console.log("Quality UPDATE");
+		// console.log(tickets);
 
 
 		if(tickets) {
 			for (var i=0; i<tickets.length; i++) {
 				var ticket = tickets[i];
-				
-				console.log("Quality issue parsing:");
-				console.log(ticket);
-				
 				var record = {};
 				record.ticketKey = ticket.key;
 				record.ticketId = ticket.id;

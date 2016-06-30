@@ -33,11 +33,16 @@ class DataRetriever {
 	retrieveData() {
 		console.log('');
 		console.log('JIRA: (Step 2) Retrive sprint data.');
-		for (var i=settings.sprints.length-1; i>=0; i--) {
+		
+		var historyLength = 3;
+
+		for (var i=0; i<=settings.sprints.length-1; i++) {
       var sprint = settings.sprints[i];
 			var queueItem = new SprintRetriever(sprint, this.restClient, this.dataStorage);
 			if (this.sprintQueue.length > 0) queueItem.setSuccessor(this.sprintQueue[0]);
 			this.sprintQueue.unshift(queueItem);
+			
+			if (this.sprintQueue.length >= historyLength) break;
 		}
 		this.sprintQueue[0].retrieveSprint();
 	}
