@@ -1,6 +1,9 @@
 "use strict";
 
 var restify = require('restify');
+var ReturnSprintList = require('./routes/returnSprintList.js');
+var ReturnSprintById = require('./routes/returnSprintById.js');
+
 
 class RestServer {
 	
@@ -15,18 +18,14 @@ class RestServer {
 		  credentials: true,                 // defaults to false
 		  headers: ['x-foo']                 // sets expose-headers
 		}));
- 
-		this.server.get("/products", function (req, res, next) {
-		    res.send(data);
+
+		this.server.get("/", function (req, res, next) {
+		    res.send("Hello!");
 		    return next();
 		});
-
-		this.server.get('/product/:id', function (req, res, next) {
-			var id = req.params.id;
-			var result = data[id];
-		  res.send(result);
-		  return next();
-		});
+ 
+		this.server.get("/sprints", ReturnSprintList);
+		// this.server.get('/sprint/:id', ReturnSprintById);
 	}
 	
 	start() {
