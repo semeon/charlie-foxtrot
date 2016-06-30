@@ -8,14 +8,9 @@ var DataStorage = require('./storage/dataStorage.js');
 
 
 class Model {
-
 	constructor() {
-		this.rawData = {};
-		this.rawData.sprints = {};
-		
 		this.dataProcessor = new DataProcessor();
 		this.storage = new DataStorage();
-
 	}
 
 	addSprintData(sprint, rawSprintData) {
@@ -26,10 +21,13 @@ class Model {
 	getSprintList() {
 		return this.storage.getSprints();
 	}
+
+	getSprintById(id) {
+		return this.storage.getSprintById(id);
+	}
 }
 
 var model = new Model();
-
 module.exports = model;
 
 

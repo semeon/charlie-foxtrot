@@ -19,13 +19,9 @@ class RestServer {
 		  headers: ['x-foo']                 // sets expose-headers
 		}));
 
-		this.server.get("/", function (req, res, next) {
-		    res.send("Hello!");
-		    return next();
-		});
- 
+		this.server.get("/", ReturnSprintList);
 		this.server.get("/sprints", ReturnSprintList);
-		// this.server.get('/sprint/:id', ReturnSprintById);
+		this.server.get("/sprint/:id", ReturnSprintById);
 	}
 	
 	start() {
