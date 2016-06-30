@@ -15,7 +15,10 @@
       "es2015"
     ]
   },
-  "scripts": {},
+  "scripts": {
+    "server": "node app/startServer.js",
+    "data": "node app/startRetriever.js"
+	},
   "author": "",
   "license": "ISC"
 }
