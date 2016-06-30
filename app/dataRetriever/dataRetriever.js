@@ -25,14 +25,14 @@ class DataRetriever {
 
 	start() {
     console.log('');
-    console.log('JIRA: (Step 1) Login attemtp..');
+    console.log('JIRA: Login attemtp..');
 		this.restClient.login(this.retrieveData.bind(this));
 	}
 
 	// START DATA SCRAPING
 	retrieveData() {
 		console.log('');
-		console.log('JIRA: (Step 2) Retrive sprint data.');
+		console.log('JIRA: Retrieving recent ' + settings.defaultUpdateBatchSize + ' sprints.');
 		
 		var historyLength = 1;
 
@@ -42,7 +42,7 @@ class DataRetriever {
 			if (this.sprintQueue.length > 0) queueItem.setSuccessor(this.sprintQueue[0]);
 			this.sprintQueue.unshift(queueItem);
 			
-			if (this.sprintQueue.length >= historyLength) break;
+			if (this.sprintQueue.length >= settings.defaultUpdateBatchSize) break;
 		}
 		this.sprintQueue[0].retrieveSprint();
 	}
