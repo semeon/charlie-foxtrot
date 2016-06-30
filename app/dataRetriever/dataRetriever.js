@@ -5,7 +5,7 @@ var RestClient = require("./restClient/restClient.js");
 
 var SprintRetriever = require('./sprintRetriever.js');
 
-var DataModel = require('../model/model.js');
+var model = require('../model/model.js');
 
 
 
@@ -18,7 +18,7 @@ var DataModel = require('../model/model.js');
 class DataRetriever {
 
 	constructor() {
-		this.dataStorage = new DataModel();
+		this.dataModel = model;
 		this.restClient = new RestClient();
 		this.sprintQueue = [];
 	}
@@ -34,11 +34,11 @@ class DataRetriever {
 		console.log('');
 		console.log('JIRA: (Step 2) Retrive sprint data.');
 		
-		var historyLength = 3;
+		var historyLength = 1;
 
 		for (var i=0; i<=settings.sprints.length-1; i++) {
       var sprint = settings.sprints[i];
-			var queueItem = new SprintRetriever(sprint, this.restClient, this.dataStorage);
+			var queueItem = new SprintRetriever(sprint, this.restClient, this.dataModel);
 			if (this.sprintQueue.length > 0) queueItem.setSuccessor(this.sprintQueue[0]);
 			this.sprintQueue.unshift(queueItem);
 			
