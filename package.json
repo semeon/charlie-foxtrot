@@ -16,8 +16,9 @@
     ]
   },
   "scripts": {
-    "server": "node app/startServer.js",
-    "data": "node app/startRetriever.js"
+		"start":  "node app/startServer.js",
+		"server": "node app/startServer.js",
+		"data": "node app/startRetriever.js"
 	},
   "author": "",
   "license": "ISC"
