@@ -1,6 +1,9 @@
 {
   "name": "charlie-foxtrot",
   "version": "1.0.0",
+	"engines": {
+	    "node": "5.10.1"
+	  },
   "description": "",
   "private": true,
   "devDependencies": {
