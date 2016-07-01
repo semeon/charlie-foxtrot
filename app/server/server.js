@@ -26,7 +26,7 @@ class RestServer {
 	
 	start() {
 		var self = this;
-		this.server.listen(this.serverPort, function () {
+		this.server.listen(process.env.PORT || this.serverPort, function () {
 			    console.log("Server started @ " + self.serverPort);
 			});
 		}

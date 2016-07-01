@@ -14,8 +14,6 @@ class Application {
 
 		this.restServer = new RestServer(8081);
 		this.scheduler = new Scheduler();
-		
-		
 	}
 
 	startServer() {

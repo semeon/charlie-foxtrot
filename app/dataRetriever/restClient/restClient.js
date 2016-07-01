@@ -20,9 +20,9 @@ class RestClient {
 		if (process.env.JIRA_PASS) this.creds.username = process.env.JIRA_PASS;
 		if (process.env.JIRA_USER) this.creds.password = process.env.JIRA_USER;
 
-
-		console.log("this.creds:");
-		console.log(this.creds);
+		//
+		// console.log("this.creds:");
+		// console.log(this.creds);
 		
 		
 		this.jiraUrl = "https://xplusz.atlassian.net";
