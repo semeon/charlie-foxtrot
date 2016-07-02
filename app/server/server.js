@@ -21,6 +21,7 @@ class RestServer {
 		this.server.get("/", 								this.router.getSprintList.bind(this.router));
 
 		this.server.get("/sprints", 				this.router.getSprintList.bind(this.router));
+		this.server.get("/sprints/", 				this.router.getSprintList.bind(this.router));
 		this.server.get("/sprints/update", 	this.router.updateAllSprints.bind(this.router));
 
 		this.server.get("/sprint/:id", 				this.router.getSprintById.bind(this.router));

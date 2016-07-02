@@ -20,7 +20,10 @@ class DataStorage {
 	getSprints() {
 		var result = [];
 		for (var id in this.sprints) {
-			result.push(this.sprints[id].settings);
+			var brief = {};
+			brief.settings = this.sprints[id].settings;
+			brief.status = this.sprints[id].status;
+			result.push(brief);
 		}
 		return result;
 	}
@@ -30,7 +33,10 @@ class DataStorage {
 	}
 
 	saveSprint(sprintReport) {
-		this.sprints[sprintReport.settings.id] = sprintReport;
+		this.sprints[sprintReport.settings.id].summary = sprintReport.summary;
+		this.sprints[sprintReport.settings.id].meta = sprintReport.meta;
+		this.sprints[sprintReport.settings.id].quality = sprintReport.quality;
+		this.sprints[sprintReport.settings.id].status.updated = new Date();
 	}
 	
 	saveSprintToDB(sprintReport) {
@@ -62,9 +68,10 @@ class DataStorage {
 			var sprint = settings.sprints[i];
 			this.sprints[sprint.id] = {};
 			this.sprints[sprint.id].settings = sprint;
+			this.sprints[sprint.id].status = {};
+			this.sprints[sprint.id].status.updated = null;
 		}
 	}
-
 
 	createReportSchema(sprintReport) {
 		this.reportSchema = this.schemeGen.getReportSchema(sprintReport);
