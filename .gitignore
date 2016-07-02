@@ -1,4 +1,5 @@
 node_modules
 app/datapreprocessor
-data
+data/raw
+data/reports/*.json
 cred.js
