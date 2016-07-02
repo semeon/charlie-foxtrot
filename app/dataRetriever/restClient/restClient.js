@@ -14,8 +14,8 @@ class RestClient {
 		this.creds.username = "";
 		this.creds.password = "";
 		
-		// if (process.argv[2]) this.creds.username = process.argv[2];
-		// if (process.argv[3]) this.creds.password = process.argv[3];
+		if (process.argv[2]) this.creds.username = process.argv[2];
+		if (process.argv[3]) this.creds.password = process.argv[3];
 
 		if (process.env.JIRA_PASS) this.creds.username = process.env.JIRA_PASS;
 		if (process.env.JIRA_USER) this.creds.password = process.env.JIRA_USER;
@@ -44,6 +44,7 @@ class RestClient {
 	login(callback) {
 		var self = this;
 		var path = "/rest/auth/1/session";
+		console.log('JIRA: -- Login as ' + this.creds.username);
 		this.client.post(path, this.creds, function(err, request, response, data) {
         if (response.statusCode == 200) {
           console.log('JIRA: -- Succesfully logged in.');
