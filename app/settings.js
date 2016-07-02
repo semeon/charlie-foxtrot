@@ -1,6 +1,6 @@
 var appSettings = {};
 
-appSettings.defaultUpdateBatchSize = 4;
+appSettings.defaultUpdateBatchSize;
 
 
 appSettings.sprints = [

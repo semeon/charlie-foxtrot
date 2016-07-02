@@ -7,15 +7,27 @@ class Router {
 		this.retriever = retriever;
 	}
 	
-	returnSprintList(req, res, next) {
+	// route: /sprints
+	getSprintList(req, res, next) {
 	  console.log("SERVER: Route requested: " + req.route.path);
 	  console.log("SERVER: URL requested: " + req.url);
 		var list = this.model.getSprintList();
 	  res.send(list);
 	  return next();	
 	}
-
-	returnSprintById(req, res, next) {
+	
+	// route: /sprints/update
+	updateAllSprints(req, res, next) {
+	  console.log("SERVER: Route requested: " + req.route.path);
+	  console.log("SERVER: URL requested: " + req.url);
+	  res.send("Updating all sprints. Might take a while.");
+	  console.log("Updating all sprints.");
+		this.retriever.start();
+	  return next();	
+	}
+	
+	// route: /sprint/:id
+	getSprintById(req, res, next) {
 	  console.log("SERVER: Route requested: " + req.route.path);
 	  console.log("SERVER: URL requested: " + req.url);
 		var id = req.params.id;
@@ -24,14 +36,18 @@ class Router {
 	  return next();	
 	}
 
-	startDataUpdate(req, res, next) {
+	// route: /sprint/:id/update
+	updateSprint(req, res, next) {
 	  console.log("SERVER: Route requested: " + req.route.path);
 	  console.log("SERVER: URL requested: " + req.url);
-		this.retriever.start();
-	  res.send("Data update initiated. Might take a while.");
-	  console.log("Calling data retriever..");
+		var id = req.params.id;
+	  res.send("Updating sprint: " + id);
+	  console.log("Updating sprint: " + id);
+		this.retriever.start(id);
 	  return next();	
 	}
+
+
 
 }
 

@@ -18,16 +18,19 @@ class RestServer {
 		  headers: ['x-foo']                 // sets expose-headers
 		}));
 
-		this.server.get("/", 						this.router.returnSprintList.bind(this.router));
-		this.server.get("/sprints", 		this.router.returnSprintList.bind(this.router));
-		this.server.get("/sprint/:id", 	this.router.returnSprintById.bind(this.router));
+		this.server.get("/", 								this.router.getSprintList.bind(this.router));
 
-		this.server.get("/update", 			this.router.startDataUpdate.bind(this.router));
+		this.server.get("/sprints", 				this.router.getSprintList.bind(this.router));
+		this.server.get("/sprints/update", 	this.router.updateAllSprints.bind(this.router));
+
+		this.server.get("/sprint/:id", 				this.router.getSprintById.bind(this.router));
+		this.server.get("/sprint/:id/update", this.router.updateSprint.bind(this.router));
+
 	}
 	
 	start() {
 		var self = this;
-		var port = 8081;
+		var port = 8082;
 		this.server.listen(process.env.PORT || port, function () {
 			    console.log("Server started @ " + port);
 			});

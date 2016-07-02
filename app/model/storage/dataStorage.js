@@ -12,26 +12,26 @@ class DataStorage {
 
 	constructor() {
 		this.sprints = {};
+		this.presetData();
 	}
 
 
 	// API
 	getSprints() {
 		var result = [];
-		for(var i=0; i<settings.sprints.length; i++) {
-			var sprint = settings.sprints[i];
-			result.push(sprint);
+		for (var id in this.sprints) {
+			result.push(this.sprints[id].settings);
 		}
 		return result;
 	}
+
 	getSprintById(id) {
 		return this.sprints[id];
 	}
+
 	saveSprint(sprintReport) {
 		this.sprints[sprintReport.settings.id] = sprintReport;
 	}
-
-
 	
 	saveSprintToDB(sprintReport) {
 		console.log("DATA: ---- Saving sprint report to DB");
@@ -55,9 +55,17 @@ class DataStorage {
 	}
 
 
-
-
 	// INTERNAL
+
+	presetData() {
+		for(var i=0; i<settings.sprints.length; i++) {
+			var sprint = settings.sprints[i];
+			this.sprints[sprint.id] = {};
+			this.sprints[sprint.id].settings = sprint;
+		}
+	}
+
+
 	createReportSchema(sprintReport) {
 		this.reportSchema = this.schemeGen.getReportSchema(sprintReport);
 	}

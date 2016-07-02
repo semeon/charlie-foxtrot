@@ -8,10 +8,10 @@ var QualityIssuesRetriever = require('./retrievers/qualityIssuesRetriever.js');
 
 class SprintRetriever {
 
-	constructor(sprint, restClient, dataStorage) {
+	constructor(sprint, restClient, dataModel) {
 		this.sprint = sprint;
 
-		this.dataStorage = dataStorage;
+		this.dataModel = dataModel;
 		
 		this.sprintData = {};
 		this.sprintData.settings = sprint;
@@ -52,7 +52,7 @@ class SprintRetriever {
 	}
 	
 	onRetrieveCompletion(data) {
-		this.dataStorage.addSprintData(this.sprint, this.sprintData);
+		this.dataModel.addSprintData(this.sprint, this.sprintData);
 
 		if(this.succesor) {
 			this.succesor.retrieveSprint();
