@@ -8,7 +8,6 @@ class RestClient {
 	constructor() {
 		this.asyncCounter = 0;
 		this.loggedIn = false;		
-		// this.creds = require('./cred.js').cred;
 
 		this.creds = {};
 		this.creds.username = "";
@@ -17,10 +16,9 @@ class RestClient {
 		if (process.argv[2]) this.creds.username = process.argv[2];
 		if (process.argv[3]) this.creds.password = process.argv[3];
 
-		if (process.env.JIRA_PASS) this.creds.username = process.env.JIRA_PASS;
-		if (process.env.JIRA_USER) this.creds.password = process.env.JIRA_USER;
+		if (process.env.JIRA_USER) this.creds.username = process.env.JIRA_USER;
+		if (process.env.JIRA_PASS) this.creds.password = process.env.JIRA_PASS;
 
-		//
 		// console.log("this.creds:");
 		// console.log(this.creds);
 		
