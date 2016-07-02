@@ -34,8 +34,6 @@ class DataRetriever {
 		console.log('');
 		console.log('JIRA: Retrieving recent ' + settings.defaultUpdateBatchSize + ' sprints.');
 		
-		var historyLength = 1;
-
 		for (var i=0; i<=settings.sprints.length-1; i++) {
       var sprint = settings.sprints[i];
 			var queueItem = new SprintRetriever(sprint, this.restClient, this.dataModel);
