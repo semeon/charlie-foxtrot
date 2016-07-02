@@ -1,14 +1,13 @@
 "use strict";
 
 var restify = require('restify');
-var ReturnSprintList = require('./routes/returnSprintList.js');
-var ReturnSprintById = require('./routes/returnSprintById.js');
-
+var Router = require('./routes/router.js');
 
 class RestServer {
 	
-	constructor(port) {
-		this.serverPort = port;
+	constructor(model, retriever) {
+		this.router = new Router(model, retriever);
+
 		this.server = restify.createServer();
 		this.server.use(restify.acceptParser(this.server.acceptable));
 		this.server.use(restify.queryParser());
@@ -19,15 +18,18 @@ class RestServer {
 		  headers: ['x-foo']                 // sets expose-headers
 		}));
 
-		this.server.get("/", ReturnSprintList);
-		this.server.get("/sprints", ReturnSprintList);
-		this.server.get("/sprint/:id", ReturnSprintById);
+		this.server.get("/", 						this.router.returnSprintList.bind(this.router));
+		this.server.get("/sprints", 		this.router.returnSprintList.bind(this.router));
+		this.server.get("/sprint/:id", 	this.router.returnSprintById.bind(this.router));
+
+		this.server.get("/update", 			this.router.startDataUpdate.bind(this.router));
 	}
 	
 	start() {
 		var self = this;
-		this.server.listen(process.env.PORT || this.serverPort, function () {
-			    console.log("Server started @ " + self.serverPort);
+		var port = 8081;
+		this.server.listen(process.env.PORT || port, function () {
+			    console.log("Server started @ " + port);
 			});
 		}
 }
