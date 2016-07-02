@@ -23,6 +23,7 @@ class Application {
 
 		// this.scheduler.scheduleJob('every 10 min', this.startDataRetriever.bind(this));
 		this.restServer.start();
+		this.dataRetriever.start();
 	}
 
 	startDataRetriever() {
