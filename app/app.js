@@ -1,7 +1,7 @@
 "use strict";
 
 var RestServer = require('./server/server.js');
-var model = require('./model/model.js');
+var Model = require('./model/model.js');
 var DataRetriever = require('./dataRetriever/dataRetriever.js');
 var Scheduler = require('./scheduler/scheduler.js');
 
@@ -9,14 +9,18 @@ var Scheduler = require('./scheduler/scheduler.js');
 class Application {
 
 	constructor() {
-		this.dataModel = model;
+		this.dataModel = new Model();
 		this.dataRetriever = new DataRetriever(this.dataModel);
-		this.restServer = new RestServer(8081);
+
+		this.restServer = new RestServer(this.dataModel, this.dataRetriever);
 		this.scheduler = new Scheduler();
 	}
 
 	startServer() {
-		this.scheduler.scheduleJob('every 10 min', this.startDataRetriever.bind(this));
+		// console.log("this.jiraCred:");
+		// console.log(this.jiraCred);
+		// this.scheduler.scheduleJob('every 10 min', this.startDataRetriever.bind(this));
+		// this.dataRetriever.start();
 		this.restServer.start();
 	}
 
