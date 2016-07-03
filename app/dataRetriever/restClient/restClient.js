@@ -5,7 +5,8 @@ var restify = require('restify');
 
 class RestClient {
 
-	constructor() {
+	constructor(retriever) {
+		this.retriever = retriever;
 		this.creds = {};
 		this.creds.username = "";
 		this.creds.password = "";
@@ -47,6 +48,7 @@ class RestClient {
 					callback(data);
 				} else {
           console.log('JIRA: could not login. Status: ', response.statusCode, ' (', response.statusMessage,  ')' );
+					self.retriever.requestFailed();
 				}
 		});		
 	}
@@ -58,10 +60,6 @@ class RestClient {
 	        jql: "project=RH AND worklogDate >= " + sprint.start  + " AND worklogDate <= " + sprint.end,
 					maxResults: 300,
 				};
-
-				console.log('JIRA: ---- Requesting tickets');
-				console.log('JIRA: ---- ' + path);
-				// console.dir(this.params);
 		this.client.post(path, data, function(err, request, response, data) {
         if (response.statusCode == 200) {
 
@@ -76,6 +74,7 @@ class RestClient {
 					
 				} else {
         	console.log('JIRA: Could not retrieve data. Status: ', response.statusCode, ' (', response.statusMessage,  ')' );
+					self.retriever.requestFailed();
       	}
 			});
 	}
@@ -97,6 +96,7 @@ class RestClient {
 					callback(issue, worklogs);
 				} else {
         	console.log('JIRA: Could not retrieve data. Status: ', response.statusCode, ' (', response.statusMessage,  ')' );
+					self.retriever.requestFailed();
         }
 			});
 	}
@@ -125,6 +125,7 @@ class RestClient {
 					
 				} else {
         	console.log('JIRA: Could not retrieve data. Status: ', response.statusCode, ' (', response.statusMessage,  ')' );
+					self.retriever.requestFailed();
       	}
 			});
 	}
@@ -143,25 +144,25 @@ class RestClient {
 	}
 
 
-	post(path, params, callback) {
-		this.client.post(url, this.creds, function(err, request, response, data) {
-        if (response.statusCode == 200) {
-					callback(data);
-				} else {
-          console.log('JIRA: could not login. Status: ', response.statusCode, ' (', response.statusMessage,  ')' );
-				}
-				self.asyncCompleted();
-		});		
-
-	}
-
-	asyncStarted() {
-		this.asyncCounter++;
-	}
-
-	asyncCompleted() {
-		this.asyncCounter--;
-	}
+	// post(path, params, callback) {
+	// 	this.client.post(url, this.creds, function(err, request, response, data) {
+	//         if (response.statusCode == 200) {
+	// 				callback(data);
+	// 			} else {
+	//           console.log('JIRA: could not login. Status: ', response.statusCode, ' (', response.statusMessage,  ')' );
+	// 			}
+	// 			self.asyncCompleted();
+	// 	});
+	//
+	// }
+	//
+	// asyncStarted() {
+	// 	this.asyncCounter++;
+	// }
+	//
+	// asyncCompleted() {
+	// 	this.asyncCounter--;
+	// }
 
 
 }

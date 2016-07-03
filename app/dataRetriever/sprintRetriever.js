@@ -8,11 +8,11 @@ var QualityIssuesRetriever = require('./retrievers/qualityIssuesRetriever.js');
 
 class SprintRetriever {
 
-	constructor(sprint, restClient, dataModel) {
+	constructor(sprint, restClient, dataModel, retriever) {
 		this.sprint = sprint;
-
 		this.dataModel = dataModel;
-		
+		this.retriever = retriever;
+				
 		this.sprintData = {};
 		this.sprintData.settings = sprint;
 		
@@ -57,7 +57,7 @@ class SprintRetriever {
 		if(this.succesor) {
 			this.succesor.retrieveSprint();
 		} else {
-			console.log("JIRA: Sprint data retrieving is completed.");
+			this.retriever.requestSucceeded();
 		}
 	}
 }

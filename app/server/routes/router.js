@@ -20,9 +20,12 @@ class Router {
 	updateAllSprints(req, res, next) {
 	  console.log("SERVER: Route requested: " + req.route.path);
 	  console.log("SERVER: URL requested: " + req.url);
-	  res.send("Updating all sprints. Might take a while.");
-	  console.log("Updating all sprints.");
-		this.retriever.start();
+		var result = this.retriever.start();
+		if (result) {
+		  res.send("Updating all sprints. Might take a while.");
+		} else {
+		  res.send("Server is busy, try later.");
+		}
 	  return next();	
 	}
 	
@@ -41,9 +44,13 @@ class Router {
 	  console.log("SERVER: Route requested: " + req.route.path);
 	  console.log("SERVER: URL requested: " + req.url);
 		var id = req.params.id;
-	  res.send("Updating sprint: " + id);
-	  console.log("Updating sprint: " + id);
-		this.retriever.start(id);
+		var result = this.retriever.start(id);
+		if (result) {
+		  res.send("Updating sprint " + id);
+		} else {
+		  res.send("Server is busy, try later.");
+		}		
+		
 	  return next();	
 	}
 
