@@ -6,9 +6,6 @@ var restify = require('restify');
 class RestClient {
 
 	constructor() {
-		this.asyncCounter = 0;
-		this.loggedIn = false;		
-
 		this.creds = {};
 		this.creds.username = "";
 		this.creds.password = "";
@@ -62,7 +59,9 @@ class RestClient {
 					maxResults: 300,
 				};
 
-		// console.log('JIRA: ---- Requesting tickets');
+				console.log('JIRA: ---- Requesting tickets');
+				console.log('JIRA: ---- ' + path);
+				// console.dir(this.params);
 		this.client.post(path, data, function(err, request, response, data) {
         if (response.statusCode == 200) {
 
@@ -133,7 +132,12 @@ class RestClient {
 
 	saveActiveSession(response, data) {
 		this.loggedIn = true;
-		var secretCookie = response.headers['set-cookie'][3];
+		var secretCookie = "";
+		var setCookie = response.headers['set-cookie'];
+		for(var i=0; i<setCookie.length; i++) {
+			var line = setCookie[i];
+			if (line.indexOf('studio.crowd.tokenkey') >= 0   && line.indexOf('studio.crowd.tokenkey=""') < 0)  secretCookie += line;
+		}
 		this.params.headers.cookie = data.session.name + '=' + data.session.value + ';' + secretCookie;
     // console.log("Cookie: " + this.params.headers.cookie);
 	}

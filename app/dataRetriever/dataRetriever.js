@@ -19,31 +19,31 @@ class DataRetriever {
 		this.dataModel = model;
 		this.restClient = new RestClient();
 		this.sprintQueue = [];
+		this.scope = null;
 	}
 
-	start() {
+	start(id) {
     console.log('');
     console.log('JIRA: Login attemtp..');
+		if (id) this.scope = id;
 		this.restClient.login(this.retrieveData.bind(this));
 	}
 
 	// START DATA SCRAPING
 	retrieveData() {
 		console.log('');
-		if (settings.defaultUpdateBatchSize == 0) {
-			console.log('JIRA: Retrieving all sprints.');
-		} else {
-			console.log('JIRA: Retrieving recent ' + settings.defaultUpdateBatchSize + ' sprints.');
-		}
+		console.log('JIRA: Retrieving all sprints.');
 		
 		for (var i=0; i<=settings.sprints.length-1; i++) {
       var sprint = settings.sprints[i];
-			var queueItem = new SprintRetriever(sprint, this.restClient, this.dataModel);
-			if (this.sprintQueue.length > 0) queueItem.setSuccessor(this.sprintQueue[0]);
-			this.sprintQueue.unshift(queueItem);
-			if (settings.defaultUpdateBatchSize && (settings.defaultUpdateBatchSize <= this.sprintQueue.length)) break;
+			if (!this.scope || (this.scope && sprint.id == this.scope)){
+				var queueItem = new SprintRetriever(sprint, this.restClient, this.dataModel);
+				if (this.sprintQueue.length > 0) queueItem.setSuccessor(this.sprintQueue[0]);
+				this.sprintQueue.unshift(queueItem);
+			}
 		}
 		this.sprintQueue[0].retrieveSprint();
+		this.scope = null
 	}
 
 	
