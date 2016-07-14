@@ -6,6 +6,13 @@ appSettings.defaultUpdateBatchSize;
 appSettings.sprints = [
 
 	{
+		"id": "R33",
+		"title": "R33: 2016-07-25 Post Nav",
+		"start": "2016-07-12",
+		"end": "2016-07-25",
+	},
+
+	{
 		"id": "R32",
 		"title": "R32: 2016-07-11 Nav 6",
 		"start": "2016-06-28",
