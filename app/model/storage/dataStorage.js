@@ -21,8 +21,8 @@ class DataStorage {
 		var result = [];
 		for (var id in this.sprints) {
 			var brief = {};
-			brief.settings = this.sprints[id].settings;
-			brief.status = this.sprints[id].status;
+			brief = this.sprints[id].settings;
+			brief.updated = this.sprints[id].status.updated;
 			result.push(brief);
 		}
 		return result;
